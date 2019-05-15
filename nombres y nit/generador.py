@@ -11,12 +11,11 @@ for x in f:
     apellidos.append(separado[1])
 
 
-randNIT = randint(100000, 1000000) 
 
 contador = 100
 
 while contador > 0:
-    randNIT = randint(100000, 1000000) 
+    randNIT = randint(1000000, 10000000) 
     varchar = str(randNIT)
     nit_guion = varchar[0:len(varchar) -1 ] + "-" + varchar[len(varchar) - 1: len(varchar)]
 
