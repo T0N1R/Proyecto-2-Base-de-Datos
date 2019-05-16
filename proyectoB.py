@@ -12,7 +12,7 @@ import psycopg2
 
 productosTabla = []
 enviarTotal = 0.00
-claveBD = "CLAVE"
+claveBD = "060f3d4eae"
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -359,7 +359,7 @@ class Ui_MainWindow(object):
         #solo se escribe el id
         if a != "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -394,7 +394,7 @@ class Ui_MainWindow(object):
         #solo se escribe el nombre
         if a == "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -429,7 +429,7 @@ class Ui_MainWindow(object):
         #solo se escribe el nit
         if a == "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -464,7 +464,7 @@ class Ui_MainWindow(object):
         #id y nombre
         if a != "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -499,7 +499,7 @@ class Ui_MainWindow(object):
         #id y nit
         if a != "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -534,7 +534,7 @@ class Ui_MainWindow(object):
         #nombre y nit
         if a == "" and b != "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -569,7 +569,7 @@ class Ui_MainWindow(object):
         #todos
         if a != "" and b != "" and c!= "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -604,7 +604,7 @@ class Ui_MainWindow(object):
         #ninguno
         if a == "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -653,7 +653,7 @@ class Ui_MainWindow(object):
         #solo se escribe el id
         if a != "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -688,7 +688,7 @@ class Ui_MainWindow(object):
         #solo se escribe el nombre
         if a == "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -723,7 +723,7 @@ class Ui_MainWindow(object):
         #solo se escribe el precio
         if a == "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -758,7 +758,7 @@ class Ui_MainWindow(object):
         #id y nombre
         if a != "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -793,7 +793,7 @@ class Ui_MainWindow(object):
         #id y precio
         if a != "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -828,7 +828,7 @@ class Ui_MainWindow(object):
         #nombre y nit
         if a == "" and b != "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -863,7 +863,7 @@ class Ui_MainWindow(object):
         #todos
         if a != "" and b != "" and c!= "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -898,7 +898,7 @@ class Ui_MainWindow(object):
         #ninguno
         if a == "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -933,7 +933,7 @@ class Ui_MainWindow(object):
     def insertCliente(self):
 
         
-        conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
@@ -954,7 +954,7 @@ class Ui_MainWindow(object):
         cur.execute("INSERT INTO Clientes (id_cliente, nombre, NIT) VALUES(\
                     '{}', \
                     '{}',\
-                     {});".format(str(a), str(b), int(c)))
+                     '{}');".format(str(a), str(b), str(c)))
 
         conn.commit()
         conn.close()
@@ -964,7 +964,7 @@ class Ui_MainWindow(object):
     def insertProducto(self):
 
         
-        conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
@@ -1003,7 +1003,7 @@ class Ui_MainWindow(object):
         c = self.direccion_factura.toPlainText()
 
         #nit para factura
-        d = int(self.nit_factura.toPlainText())
+        d = self.nit_factura.toPlainText()
 
         #fecha factura
         e = self.fecha.toPlainText()
@@ -1015,7 +1015,7 @@ class Ui_MainWindow(object):
         g = self.cantidad_producto.toPlainText()
 
         
-        conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
@@ -1076,7 +1076,7 @@ class Ui_MainWindow(object):
         c = self.direccion_factura.toPlainText()
 
         #nit para factura
-        d = int(self.nit_factura.toPlainText())
+        d = self.nit_factura.toPlainText()
 
         #fecha factura
         e = self.fecha.toPlainText()
@@ -1091,26 +1091,25 @@ class Ui_MainWindow(object):
         global enviarTotal
 
         
-        conn = psycopg2.connect("dbname=proyecto user=postgres password={}".format(claveBD))
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
 
         descripcion = "a"
-        cur.execute("INSERT INTO factura(id_factura, nombre, direccion, nit, descripcion, fecha, total) VALUES ( \
+        cur.execute("INSERT INTO factura(id_factura, nombre, nit, descripcion, fecha, total) VALUES ( \
             {}, \
             '{}', \
             '{}', \
-            {}, \
             '{}', \
-            '{}', \
-            {});".format(a, b, c, d, descripcion, e, enviarTotal))
+            current_timestamp, \
+            {});".format(a, b, d, descripcion, enviarTotal))
 
         for producto in productosTabla:
             
             cur.execute("INSERT INTO linea_factura(nombre, nit, direccion, id_factura, id_producto, cantidad, precio) VALUES( \
                 '{}', \
-                {}, \
+                '{}', \
                 '{}', \
                 {}, \
                 '{}', \
