@@ -1,15 +1,15 @@
 
 CREATE TABLE productos(
-	id_producto VARCHAR(10) NOT NULL,
-	nombre VARCHAR(30) NOT NULL,
-	precio FLOAT NOT NULL,
+	id_producto INT NOT NULL, 
+	nombre VARCHAR(30) NOT NULL, 
+	precio FLOAT NOT NULL, 
 	PRIMARY KEY(id_producto)
-);
+	);
 
 
 CREATE TABLE clientes(
-	id_cliente VARCHAR(10) NOT NULL,
-	nombre VARCHAR NOT NULL,
+	id_cliente INT NOT NULL,
+	nombre VARCHAR(30) NOT NULL,
 	nit VARCHAR(10) NOT NULL,
 	PRIMARY KEY(id_cliente)
 );
@@ -26,13 +26,15 @@ CREATE TABLE factura(
 );
 
 CREATE TABLE linea_factura(
+	id_linea_factura INT NOT NULL,
 	nombre VARCHAR(30) NOT NULL,
 	nit VARCHAR(10) NOT NULL,
 	direccion VARCHAR(30) NOT NULL,
 	id_factura INT NOT NULL,
-	id_producto VARCHAR(10),
+	id_producto INT,
 	cantidad INT NOT NULL,
 	precio FLOAT NOT NULL,
+	PRIMARY KEY(id_linea_factura),
 	FOREIGN KEY(id_factura) REFERENCES factura(id_factura),
 	FOREIGN KEY(id_producto) REFERENCES productos(id_producto)
 );
