@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Antonio\Documents\Stuff\Base de Datos\proyectoBD\proyecto.ui'
+# Form implementation generated from reading ui file 'C:\Users\Antonio\Documents\Stuff\Base de Datos\proyectoBD\proyecto2.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -12,7 +12,7 @@ import psycopg2
 
 productosTabla = []
 enviarTotal = 0.00
-# claveBD = "060f3d4eae"
+claveBD = "clave"
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -162,13 +162,13 @@ class Ui_MainWindow(object):
         self.tabVentas = QtWidgets.QWidget()
         self.tabVentas.setObjectName("tabVentas")
         self.total_ventas = QtWidgets.QLabel(self.tabVentas)
-        self.total_ventas.setGeometry(QtCore.QRect(550, 410, 180, 61))
+        self.total_ventas.setGeometry(QtCore.QRect(570, 410, 141, 61))
         font = QtGui.QFont()
         font.setPointSize(24)
         self.total_ventas.setFont(font)
         self.total_ventas.setObjectName("total_ventas")
         self.tabla_ventas = QtWidgets.QTableWidget(self.tabVentas)
-        self.tabla_ventas.setGeometry(QtCore.QRect(420, 60, 471, 341))
+        self.tabla_ventas.setGeometry(QtCore.QRect(420, 60, 471, 141))
         self.tabla_ventas.setRowCount(0)
         self.tabla_ventas.setColumnCount(3)
         self.tabla_ventas.setObjectName("tabla_ventas")
@@ -179,7 +179,7 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tabla_ventas.setHorizontalHeaderItem(2, item)
         self.pago = QtWidgets.QPushButton(self.tabVentas)
-        self.pago.setGeometry(QtCore.QRect(760, 420, 91, 41))
+        self.pago.setGeometry(QtCore.QRect(720, 420, 91, 41))
         self.pago.setObjectName("pago")
         self.label_16 = QtWidgets.QLabel(self.tabVentas)
         self.label_16.setGeometry(QtCore.QRect(10, 90, 61, 21))
@@ -235,6 +235,28 @@ class Ui_MainWindow(object):
         self.label_24 = QtWidgets.QLabel(self.tabVentas)
         self.label_24.setGeometry(QtCore.QRect(10, 40, 91, 20))
         self.label_24.setObjectName("label_24")
+        self.pushFactura = QtWidgets.QPushButton(self.tabVentas)
+        self.pushFactura.setGeometry(QtCore.QRect(310, 266, 81, 51))
+        self.pushFactura.setObjectName("pushFactura")
+        self.tabla_factura = QtWidgets.QTableWidget(self.tabVentas)
+        self.tabla_factura.setGeometry(QtCore.QRect(420, 220, 471, 141))
+        self.tabla_factura.setRowCount(0)
+        self.tabla_factura.setColumnCount(7)
+        self.tabla_factura.setObjectName("tabla_factura")
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tabla_factura.setHorizontalHeaderItem(6, item)
         self.tota_precio.addTab(self.tabVentas, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -269,10 +291,10 @@ class Ui_MainWindow(object):
         self.pushButton_3.clicked.connect(self.ventas)
         self.borrar_ventas.clicked.connect(self.borrarVentas)
         self.pago.clicked.connect(self.finalizarVentas)
+        self.pushFactura.clicked.connect(self.darFACTURAS)
 
         ###############################
         ########### BOTONES ###########
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -332,6 +354,21 @@ class Ui_MainWindow(object):
         self.borrar_ventas.setText(_translate("MainWindow", "Borrar"))
         self.pushButton_3.setText(_translate("MainWindow", "Agregar"))
         self.label_24.setText(_translate("MainWindow", "id Factura:"))
+        self.pushFactura.setText(_translate("MainWindow", "Factura"))
+        item = self.tabla_factura.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "id factura"))
+        item = self.tabla_factura.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "nombre"))
+        item = self.tabla_factura.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "nit"))
+        item = self.tabla_factura.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "descripcion"))
+        item = self.tabla_factura.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "factura"))
+        item = self.tabla_factura.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "cantidad"))
+        item = self.tabla_factura.horizontalHeaderItem(6)
+        item.setText(_translate("MainWindow", "precio"))
         self.tota_precio.setTabText(self.tota_precio.indexOf(self.tabVentas), _translate("MainWindow", "Ventas"))
         self.actionConsulta.setText(_translate("MainWindow", "Consulta"))
         self.actionInsertar.setText(_translate("MainWindow", "Insertar"))
@@ -340,7 +377,44 @@ class Ui_MainWindow(object):
         self.actionConsulta_3.setText(_translate("MainWindow", "Consulta"))
         self.actionInsertar_3.setText(_translate("MainWindow", "Insertar"))
 
-    # global claveBD
+    global claveBD
+    
+    def darFACTURAS(self):
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
+
+        #cursor para hacer operaciones en la database
+        cur = conn.cursor()
+            
+        result = cur.execute("SELECT * FROM Factura;")
+        conn.commit()
+
+        rows = cur.fetchall()
+
+        enviar = []
+
+        for data in rows:
+            fila = (str(data[0]), str(data[1]), str(data[2]), str(data[3]), str(data[4]), str(data[5]) )
+            enviar.append(fila)
+
+        self.tabla_factura.clearContents()
+
+        row = 0
+
+        for edian in enviar:
+            self.tabla_factura.setRowCount(row + 1)
+
+            self.tabla_factura.setItem(row, 0, QTableWidgetItem(edian[0]))
+            self.tabla_factura.setItem(row, 1, QTableWidgetItem(edian[1]))
+            self.tabla_factura.setItem(row, 2, QTableWidgetItem(edian[2]))
+            self.tabla_factura.setItem(row, 3, QTableWidgetItem(edian[3]))
+            self.tabla_factura.setItem(row, 4, QTableWidgetItem(edian[4]))
+            self.tabla_factura.setItem(row, 5, QTableWidgetItem(edian[5]))
+            
+            
+            row += 1
+
+
+            conn.close()
 
     def buscarCliente(self):
         #id del cliente
@@ -359,7 +433,7 @@ class Ui_MainWindow(object):
         #solo se escribe el id
         if a != "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -394,7 +468,7 @@ class Ui_MainWindow(object):
         #solo se escribe el nombre
         if a == "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -429,7 +503,7 @@ class Ui_MainWindow(object):
         #solo se escribe el nit
         if a == "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -464,7 +538,7 @@ class Ui_MainWindow(object):
         #id y nombre
         if a != "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -499,7 +573,7 @@ class Ui_MainWindow(object):
         #id y nit
         if a != "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -534,7 +608,7 @@ class Ui_MainWindow(object):
         #nombre y nit
         if a == "" and b != "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -569,7 +643,7 @@ class Ui_MainWindow(object):
         #todos
         if a != "" and b != "" and c!= "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -604,7 +678,7 @@ class Ui_MainWindow(object):
         #ninguno
         if a == "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -653,7 +727,7 @@ class Ui_MainWindow(object):
         #solo se escribe el id
         if a != "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -688,7 +762,7 @@ class Ui_MainWindow(object):
         #solo se escribe el nombre
         if a == "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -723,7 +797,7 @@ class Ui_MainWindow(object):
         #solo se escribe el precio
         if a == "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -758,7 +832,7 @@ class Ui_MainWindow(object):
         #id y nombre
         if a != "" and b != "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -793,7 +867,7 @@ class Ui_MainWindow(object):
         #id y precio
         if a != "" and b == "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -828,7 +902,7 @@ class Ui_MainWindow(object):
         #nombre y nit
         if a == "" and b != "" and c != "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -863,7 +937,7 @@ class Ui_MainWindow(object):
         #todos
         if a != "" and b != "" and c!= "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -898,7 +972,7 @@ class Ui_MainWindow(object):
         #ninguno
         if a == "" and b == "" and c == "":
             
-            conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+            conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
             #cursor para hacer operaciones en la database
             cur = conn.cursor()
@@ -933,7 +1007,7 @@ class Ui_MainWindow(object):
     def insertCliente(self):
 
         
-        conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
@@ -964,7 +1038,7 @@ class Ui_MainWindow(object):
     def insertProducto(self):
 
         
-        conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
@@ -1015,7 +1089,7 @@ class Ui_MainWindow(object):
         g = self.cantidad_producto.toPlainText()
 
         
-        conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
@@ -1091,7 +1165,7 @@ class Ui_MainWindow(object):
         global enviarTotal
 
         
-        conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+        conn = psycopg2.connect("dbname=proyecto2 user=postgres password={}".format(claveBD))
 
         #cursor para hacer operaciones en la database
         cur = conn.cursor()
