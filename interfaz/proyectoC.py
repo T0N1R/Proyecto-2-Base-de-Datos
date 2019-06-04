@@ -9,10 +9,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem
 import psycopg2
+import pymongo
+import random
 
 productosTabla = []
 enviarTotal = 0.00
-claveBD = "clave"
+claveBD = "postgres"
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -1031,6 +1033,22 @@ class Ui_MainWindow(object):
                      '{}');".format(str(a), str(b), str(c)))
 
         conn.commit()
+
+        connection = pymongo.MongoClient('localhost', 27017)
+
+        database = connection ['mydb_01']
+
+        collectionCliente = database['clientes']
+
+        data = {
+            'id' : a,
+            'nombre' : str(b),
+            'nit' : str(c)
+
+        }
+
+        collectionCliente.insert_one(data)
+
         conn.close()
 
         print("nuevo cliente")
@@ -1062,6 +1080,24 @@ class Ui_MainWindow(object):
 	                 {});".format(str(a), str(b), float(c)))
 
         conn.commit()
+
+
+        connection = pymongo.MongoClient('localhost', 27017)
+
+        database = connection ['mydb_01']
+
+        collectionCliente = database['productos']
+
+        data = {
+            'id' : str(a),
+            'nombre' : str(b),
+            'precio' : c
+
+        }
+
+        collectionCliente.insert_one(data)
+
+
         conn.close()
 
         print("nuevo producto")
@@ -1179,9 +1215,13 @@ class Ui_MainWindow(object):
             current_timestamp, \
             {});".format(a, b, d, descripcion, enviarTotal))
 
+
         for producto in productosTabla:
             
-            cur.execute("INSERT INTO linea_factura(nombre, nit, direccion, id_factura, id_producto, cantidad, precio) VALUES( \
+            h = random.randint(0, 999999)
+
+            cur.execute("INSERT INTO linea_factura(id_linea_factura, nombre, nit, direccion, id_factura, id_producto, cantidad, precio) VALUES( \
+                {}, \
                 '{}', \
                 '{}', \
                 '{}', \
@@ -1189,13 +1229,32 @@ class Ui_MainWindow(object):
                 '{}', \
                 {}, \
                 {} \
-                );".format(b, d, c, a, f, g, producto[2]))
+                );".format(h, b, d, c, a, f, g, producto[2]))
         
         cur.execute("UPDATE factura \
             SET total = {} \
             WHERE id_factura = {};".format(enviarTotal, a))
 
         conn.commit()
+
+
+        connection = pymongo.MongoClient('localhost', 27017)
+
+        database = connection ['mydb_01']
+
+        collectionCliente = database['consolidado']
+
+        data = {
+            'id_factura' : a,
+            'nombre' : str(b),
+            'nit' : str(d),
+            'total' : enviarTotal
+
+        }
+
+        collectionCliente.insert_one(data)
+
+
         conn.close()
 
 
