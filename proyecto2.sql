@@ -25,19 +25,7 @@ CREATE TABLE factura(
 	PRIMARY KEY(id_factura)
 );
 
-CREATE TABLE linea_factura(
-	id_linea_factura INT NOT NULL,
-	nombre VARCHAR(30) NOT NULL,
-	nit VARCHAR(10) NOT NULL,
-	direccion VARCHAR(30) NOT NULL,
-	id_factura INT NOT NULL,
-	id_producto INT,
-	cantidad INT NOT NULL,
-	precio FLOAT NOT NULL,
-	PRIMARY KEY(id_linea_factura),
-	FOREIGN KEY(id_factura) REFERENCES factura(id_factura),
-	FOREIGN KEY(id_producto) REFERENCES productos(id_producto)
-);
+CREATE TABLE linea_factura(id_linea_factura INT NOT NULL, id_factura INT NOT NULL, id_producto INT, cantidad INT NOT NULL, precio FLOAT NOT NULL, PRIMARY KEY(id_linea_factura), FOREIGN KEY(id_factura) REFERENCES factura(id_factura), FOREIGN KEY(id_producto) REFERENCES productos(id_producto));
 
 select * from factura;
 

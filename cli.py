@@ -7,7 +7,10 @@ from random import randint
 
 productos = ["Leche", "Arroz", "Maizena", "cafe", "frijol", "sopa", "huevos", "Consomate", "harina de trigo", "azucar", 
              "aceite", "manteca", "papa", "jitomate", "chile rojo", "chile verde", "cebolla", "jabon", "cloro", "sal", 
-             "naranjas", "platanos", "limones", "pinol", "pasta", "cervezas", "Quetzalteca", "Ron", "Tequila", "Burritos"]
+             "naranjas", "platanos", "limones", "pinol", "pasta", "cervezas", "Quetzalteca", "Ron", "Tequila", "Burritos",
+             "Yogurt descremado", "yogurt con frutas", "yogurt batido", "yogurt entero", "yogurt con cereales", "yogurt", "repelentes", "lavandinas",
+             "lavavajillas", "limpiador de piso", "papel higiénico", "rollo de cocina", "jabón", "jabón en polvo", "jabón líquido", "suavizante para la ropa", "tapa de empanadas",
+             "tapa de tartas", "crema enguaje", "champú", "desodorante femenino", "desodorante masculino", "alcohol", "crema dental", "tampones", "toallas higiénicas"]
 
 
 conn = psycopg2.connect("dbname=proyecto2 user=postgres")
@@ -35,7 +38,7 @@ def main(args):
             cantidadClientes = input("Cuantos clientes se acaban de ingresar al sistema? ")
             populateClients(cantidadClientes)
         if chosenOption == 5:
-            exitFlag = true
+            exitFlag = True
         if chosenOption == 6:
             print("This is a hidden test option")
             currNit()
@@ -131,14 +134,14 @@ def generateData(days):
     except Exception as exp:
         id_linea=0
 
-    for temp_id_factura in range(id_factura+1, id_factura +1+ days * randint(1, 10)):
+    for temp_id_factura in range(id_factura+1, id_factura +1+ days * randint(1, 10000)):
         cur.execute(generateRandomReceipt(temp_id_factura))
         print("Se han generado las facturas vacias")
-        #count_line = randint(1, 10)
-        #for temp_linea in range(id_linea+1, id_linea + count_line):
-        #    cur.execute(generateRandomLine(temp_linea, temp_id_factura))
-        #    print("Se ha llenado la factura")
-        #id_linea = id_linea + count_line
+        count_line = randint(1, 10)
+        for temp_linea in range(id_linea+1, id_linea + count_line):
+            cur.execute(generateRandomLine(temp_linea, temp_id_factura))
+            print("Se ha llenado la factura")
+        id_linea = id_linea + count_line
 
     conn.commit()
 
@@ -158,11 +161,11 @@ def getRandomDate():
 
 
 def generateRandomReceipt(id_factura):
-    return('INSERT INTO "factura" ("id_factura", "nombre", "nit", "descripcion", "fecha", "total") VALUES (' + str(id_factura) + ', ' +"'" + "cliente"+str(randint(1, int(lastClient())) +"'" + ', ' + str(randint(1000000, 99999999)) + ', ' + "'" + str("a") + "'" + ', ' +"'"+ str(getRandomDate()) +"'"+ ', ' + str(randint(0, 9999)) +');'))
+    return('INSERT INTO "factura" ("id_factura", "nombre", "nit", "descripcion", "fecha", "total") VALUES (' + str(id_factura) + ', ' + "'" + "cliente" + str(randint(1, int(lastClient()))) + "'" + ', ' + str(randint(1000000, 99999999)) + ', ' + "'" + str("a") + "'" + ', ' +"'"+ str(getRandomDate()) +"'"+ ', ' + str(randint(0, 9999)) +');')
 
 
-#def generateRandomLine(cant, factura):
-#    return('INSERT INTO "linea_factura" ("id_linea_factura", "nombre", "nit", "direccion", "id_factura", "id_producto", "cantidad_producto", "precio") VALUES ('+ str(cant) + ', ' +"'" + str("nombre"+str(cant) +"'" + ', '+ str(factura) + ', ' + str(cant) + ',' + str(cant) + ', '+str(randint(1,1000)+ ','+str(randint(10,800)) + ');')
+def generateRandomLine(cant, factura):
+    return('INSERT INTO "linea_factura" ("id_linea_factura", "id_factura", "id_producto", "cantidad", "precio") VALUES ('+ str(cant) + ', '+ str(factura) + ', ' + str(randint(1, int(lastPrduct()))) + ',' + str(randint(1, 3)) + ', '+str(randint(1,99))+ ');')
 
 def generateRandomProducts(id_product):
     return('INSERT INTO "productos" ("id_producto", "nombre", "precio") VALUES (' + str(id_product) + ', ' +"'" + str(getRandomArrayFromOpts(productos)) +"'" + ', ' + str(randint(0, 999)) + ');')
