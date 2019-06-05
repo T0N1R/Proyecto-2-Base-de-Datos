@@ -165,7 +165,7 @@ def generateRandomReceipt(id_factura):
 
 
 def generateRandomLine(cant, factura):
-    return('INSERT INTO "linea_factura" ("id_linea_factura", "id_factura", "id_producto", "cantidad", "precio") VALUES ('+ str(cant) + ', '+ str(factura) + ', ' + str(randint(1, int(lastPrduct()))) + ',' + str(randint(1, 3)) + ', '+str(randint(1,99))+ ');')
+    return('INSERT INTO "linea_factura" ("id_linea_factura", "id_factura", "id_cliente", "id_producto", "cantidad", "precio") VALUES ('+ str(cant) + ', '+ str(factura) + ', '+ str(randint(1, int(lastClient()))) + ', ' + str(randint(1, int(lastPrduct()))) + ',' + str(randint(1, 3)) + ', '+str(randint(1,99))+ ');')
 
 def generateRandomProducts(id_product):
     return('INSERT INTO "productos" ("id_producto", "nombre", "precio") VALUES (' + str(id_product) + ', ' +"'" + str(getRandomArrayFromOpts(productos)) +"'" + ', ' + str(randint(0, 999)) + ');')
