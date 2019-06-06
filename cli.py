@@ -4,6 +4,8 @@ import sys
 import psycopg2
 from psycopg2 import sql
 from random import randint
+import pymongo
+
 
 productos = ["Leche", "Arroz", "Maizena", "cafe", "frijol", "sopa", "huevos", "Consomate", "harina de trigo", "azucar", 
              "aceite", "manteca", "papa", "jitomate", "chile rojo", "chile verde", "cebolla", "jabon", "cloro", "sal", 
@@ -13,7 +15,7 @@ productos = ["Leche", "Arroz", "Maizena", "cafe", "frijol", "sopa", "huevos", "C
              "tapa de tartas", "crema enguaje", "champú", "desodorante femenino", "desodorante masculino", "alcohol", "crema dental", "tampones", "toallas higiénicas"]
 
 
-conn = psycopg2.connect("dbname=proyecto2 user=postgres")
+conn = psycopg2.connect("dbname=proyecto2 user=postgres password=postgres")
 
 cur = conn.cursor()
 
@@ -161,18 +163,69 @@ def getRandomDate():
 
 
 def generateRandomReceipt(id_factura):
+    
+    connection = pymongo.MongoClient('localhost', 27017)
+
+    database = connection ['mydb_01']
+
+    collectionCliente = database['consolidado']
+
+    data = {
+        'id_factura' : str(id_factura),
+        'nombre' : "cliente" + str(randint(1, int(lastClient()))),
+        'nit' : str(randint(1000000, 99999999)),
+        'total' : str(randint(0, 9999))
+
+        }
+
+    collectionCliente.insert_one(data)
+
     return('INSERT INTO "factura" ("id_factura", "nombre", "nit", "descripcion", "fecha", "total") VALUES (' + str(id_factura) + ', ' + "'" + "cliente" + str(randint(1, int(lastClient()))) + "'" + ', ' + str(randint(1000000, 99999999)) + ', ' + "'" + str("a") + "'" + ', ' +"'"+ str(getRandomDate()) +"'"+ ', ' + str(randint(0, 9999)) +');')
 
 
+
 def generateRandomLine(cant, factura):
-    return('INSERT INTO "linea_factura" ("id_linea_factura", "id_factura", "id_cliente", "id_producto", "cantidad", "precio") VALUES ('+ str(cant) + ', '+ str(factura) + ', '+ str(randint(1, int(lastClient()))) + ', ' + str(randint(1, int(lastPrduct()))) + ',' + str(randint(1, 3)) + ', '+str(randint(1,99))+ ');')
+    return('INSERT INTO "linea_factura" ("id_linea_factura", "id_factura", "id_producto", "cantidad", "precio") VALUES ('+ str(cant) + ', '+ str(factura) + ', ' + str(randint(1, int(lastPrduct()))) + ',' + str(randint(1, 3)) + ', '+str(randint(1,99))+ ');')
 
 def generateRandomProducts(id_product):
+    
+    connection = pymongo.MongoClient('localhost', 27017)
+
+    database = connection ['mydb_01']
+
+    collectionCliente = database['productos']
+
+    data = {
+        'id' : str(id_product),
+        'nombre' : str(getRandomArrayFromOpts(productos)),
+        'precio' : str(randint(0, 999))
+    }
+
+    collectionCliente.insert_one(data)
+
     return('INSERT INTO "productos" ("id_producto", "nombre", "precio") VALUES (' + str(id_product) + ', ' +"'" + str(getRandomArrayFromOpts(productos)) +"'" + ', ' + str(randint(0, 999)) + ');')
 
 
+
 def generateRandomClient(temp_id):
-     return('INSERT INTO "clientes" ("id_cliente", "nombre", "nit") VALUES (' + str(temp_id) + ', ' +"'" + "cliente"+str(temp_id) +"'" + ', ' + str(randint(1000000, 99999999)) + ');')
+    
+    connection = pymongo.MongoClient('localhost', 27017)
+
+    database = connection ['mydb_01']
+
+    collectionCliente = database['clientes']
+
+    data = {
+        'id' : str(temp_id),
+        'nombre' : str(temp_id),
+        'nit' : str(randint(1000000, 99999999))
+
+    }
+
+    collectionCliente.insert_one(data)
+
+    return('INSERT INTO "clientes" ("id_cliente", "nombre", "nit") VALUES (' + str(temp_id) + ', ' +"'" + "cliente"+str(temp_id) +"'" + ', ' + str(randint(1000000, 99999999)) + ');')
+
 
 
 def print_menu():
